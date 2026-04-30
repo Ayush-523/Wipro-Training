@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="pngtree-school-logo-png-image_6851480.png" alt="School Logo" class="logo">
+        <h1>Spring Flowers School</h1>
+    </header>
+
+    <!-- Menu Bar -->
+    <nav>
+        <button onclick="showHome()">Home</button>
+        <button onclick="showProfile()">Student Profile</button>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="container">
+
+        <!-- Welcome Page -->
+        <div id="home">
+            <h2>Welcome to Student Portal</h2>
+            <p>This is your dashboard. Click on Student Profile to view your details.</p>
+        </div>
+
+        <!-- Student Profile -->
+        <div id="profile" style="display:none;">
+            <h2>Student Profile</h2>
+            <div class="profile-card">
+                <img src="student-light-skin-tone.png" alt="Student Image" class="student-img">
+
+                <div class="student-details">
+                    <p><strong>Name:</strong> Ayush Pal</p>
+                    <p><strong>Class:</strong> B.Tech CSE</p>
+                    <p><strong>Roll No:</strong> 101</p>
+                    <p><strong>Email:</strong> ayushpal13579@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function showHome() {
+            document.getElementById("home").style.display = "block";
+            document.getElementById("profile").style.display = "none";
+        }
+
+        function showProfile() {
+            document.getElementById("home").style.display = "none";
+            document.getElementById("profile").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

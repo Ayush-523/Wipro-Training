@@ -1,0 +1,113 @@
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* 1. Box Model Section */
+.box {
+    border: 6px solid blue;
+    width: 200px;
+    padding: 30px; /* space between border and content */
+    margin: 40px auto;  /* Centered with space between elements */
+    background-color: lightblue;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 2. Flexbox Navbar Section */
+.custom-navbar {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid blue;
+    background-color: #343a40; /* Dark grey */
+    padding: 15px 30px;
+    color: aliceblue;
+    margin: 20px;
+}
+
+/* 3. Flexbox Button/Card Container */
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border: 1px solid blue;
+    background-color: cyan;
+    padding: 20px;
+    margin: 20px;
+    gap: 15px;
+}
+
+/* 4. Card Styling */
+.custom-card {
+    border: 1px solid coral;
+    padding: 20px;
+    width: 200px;    
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* 5. Grid Layout Section */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px;
+}
+
+.grid-item {
+    background-color: lightcoral;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #555;
+    font-weight: bold;
+}
+
+/* 6. Responsive Box Section */
+.responsive-box {
+    background-color: green;
+    color: aliceblue;
+    padding: 30px;
+    text-align: center;
+    margin: 20px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+/* 7. Carousel Image Control */
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Media Queries for Mobile (max-width: 600px) */
+@media (max-width: 600px) {
+    .responsive-box {
+        background: orange;
+    }
+
+    .grid-layout {
+        grid-template-columns: 1fr; /* Stack grid items */
+    }
+
+    .flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .custom-navbar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
