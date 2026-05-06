@@ -13,13 +13,11 @@ public class ProductDAO {
 
 	public void addProduct(Product p)
 	{
-	String sql = "insert into products(name ,price) values(? ,?)"; // parameterized query
+	String sql = "insert into products(name ,price) values(? ,?)"; 
 	
-	String sql1 = "create table abc(id int)";  // static queries when there is no parameter
+	String sql1 = "create table abc(id int)";  
 	
-  // CallableStatement  -- calling procedure you created in mysql
 	
-	//try with resources
 	try(Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql))
 	
