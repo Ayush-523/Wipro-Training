@@ -1,0 +1,12 @@
+2026-05-15 [main] INFO  c.company.SpringBootAop1Application - Starting SpringBootAop1Application using Java 25.0.3 with PID 10154 (/Users/ayush/intelliJ_idea/SpringBootAop1/target/classes started by ayush in /Users/ayush/intelliJ_idea/SpringBootAop1)
+2026-05-15 [main] INFO  c.company.SpringBootAop1Application - No active profile set, falling back to 1 default profile: "default"
+2026-05-15 [main] INFO  c.company.SpringBootAop1Application - Started SpringBootAop1Application in 0.73 seconds (process running for 1.29)
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Support Started
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Committed
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Report Shared
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Support Started
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Committed
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Report Shared
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Support Started
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Committed
+2026-05-15 [main] INFO  com.company.aop.LoggingAop - Transaction Report Shared

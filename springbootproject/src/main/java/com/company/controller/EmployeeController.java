@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.bean.Employee;
 import com.company.repo.EmployeeRepo;
 import com.company.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class EmployeeController {
 //
 //    }
 
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
 
         Employee emp = employeeService.createEmployee(employee);
         return new ResponseEntity<>(emp, HttpStatus.OK);
