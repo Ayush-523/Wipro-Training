@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Courses</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f6f9;
+            padding:40px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th,td{
+            padding:15px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        th{
+            background:#2563eb;
+            color:white;
+        }
+
+        a{
+            color:red;
+            text-decoration:none;
+        }
+
+    </style>
+</head>
+<body>
+
+<h2>All Courses</h2>
+
+<table>
+
+    <tr>
+        <th>ID</th>
+        <th>Course Name</th>
+        <th>Trainer</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="c : ${courses}">
+
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.courseName}"></td>
+        <td th:text="${c.trainer}"></td>
+
+        <td>
+            <a th:href="@{/admin/courses/delete/{id}(id=${c.id})}">Delete</a>
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>

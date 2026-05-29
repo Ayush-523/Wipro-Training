@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>First Time Setup</title>
+    <style>
+        body { margin:0; font-family:Arial; background:linear-gradient(to right,#141e30,#243b55);
+            height:100vh; display:flex; justify-content:center; align-items:center; }
+        .box { background:white; padding:40px; width:380px; border-radius:15px;
+            box-shadow:0 0 20px rgba(0,0,0,0.3); text-align:center; }
+        h2 { color:#243b55; margin-bottom:10px; }
+        p { color:#666; font-size:13px; margin-bottom:20px; }
+        input { width:100%; padding:12px; margin-top:12px; border-radius:8px;
+            border:1px solid #ccc; box-sizing:border-box; }
+        button { width:100%; padding:12px; margin-top:20px; background:#243b55;
+            color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer; }
+        button:hover { background:#141e30; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>🎓 LMS First Time Setup</h2>
+    <p>Create your admin credentials to get started</p>
+    <form action="/setup/save" method="post">
+        <input type="text" name="adminUsername" placeholder="Choose Admin Username" required />
+        <input type="password" name="adminPassword" placeholder="Choose Admin Password" required />
+        <button type="submit">Create Admin & Launch LMS</button>
+    </form>
+</div>
+</body>
+</html>

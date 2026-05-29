@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <style>
+        body { font-family:Arial; background:#f1f5f9; display:flex;
+            justify-content:center; align-items:center; height:100vh; margin:0; }
+        .box { background:white; padding:40px; border-radius:12px; max-width:600px;
+            width:90%; box-shadow:0 2px 15px rgba(0,0,0,0.1); text-align:center; }
+        h2 { color:#dc2626; margin-bottom:10px; }
+        .detail { background:#fee2e2; color:#b91c1c; padding:12px 16px;
+            border-radius:8px; font-size:13px; margin:15px 0; text-align:left;
+            word-break:break-all; }
+        a { color:#2563eb; text-decoration:none; font-size:14px; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>Something went wrong</h2>
+    <div class="detail">
+        <div th:if="${message}" th:text="${message}"></div>
+        <div th:if="${error}" th:text="${error}"></div>
+        <div th:if="${exception}" th:text="${exception}"></div>
+        <div th:if="${trace}" th:text="${#strings.abbreviate(trace, 500)}"></div>
+        <div th:if="${!message and !error and !exception}">No error details available. Check IntelliJ console.</div>
+    </div>
+    <a href="/admin/dashboard">Back to Dashboard</a>
+</div>
+</body>
+</html>

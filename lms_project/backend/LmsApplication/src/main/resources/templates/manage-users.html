@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Users</title>
+    <style>
+        body { margin:0; font-family:Arial; background:#f4f6f9; }
+        .sidebar { width:250px; height:100vh; background:#1f2937; position:fixed; padding-top:20px; }
+        .sidebar h2 { color:white; text-align:center; padding:10px 0; border-bottom:1px solid #374151; }
+        .sidebar a { display:block; color:#d1d5db; padding:14px 20px; text-decoration:none; font-size:14px; }
+        .sidebar a:hover { background:#374151; color:white; }
+        .content { margin-left:250px; padding:30px; }
+        h2 { color:#1f2937; }
+        .msg { padding:10px 16px; border-radius:8px; margin-bottom:15px; font-size:14px; }
+        .success { background:#dcfce7; color:#15803d; }
+        .error { background:#fee2e2; color:#b91c1c; }
+        .add-form { background:white; padding:25px 30px; border-radius:12px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:30px; }
+        .add-form h3 { margin:0 0 20px; color:#1f2937; }
+        .form-row { display:flex; gap:12px; flex-wrap:wrap; }
+        .form-row input, .form-row select { flex:1; min-width:150px; padding:10px 14px;
+            border:1px solid #d1d5db; border-radius:8px; font-size:14px; }
+        .btn { padding:10px 22px; border:none; border-radius:8px;
+            cursor:pointer; font-size:14px; font-weight:bold; text-decoration:none; display:inline-block; }
+        .btn-blue { background:#2563eb; color:white; }
+        .btn-blue:hover { background:#1d4ed8; }
+        .btn-red { background:#dc2626; color:white; }
+        .btn-green { background:#16a34a; color:white; }
+        .btn-cancel { background:#e5e7eb; color:#374151; }
+        table { width:100%; border-collapse:collapse; background:white;
+            border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+        th, td { padding:13px 18px; border-bottom:1px solid #f1f5f9; text-align:center; font-size:14px; }
+        th { background:#1f2937; color:white; }
+        .role-badge { padding:3px 10px; border-radius:20px; font-size:12px; font-weight:bold; }
+        .admin-badge { background:#fef3c7; color:#92400e; }
+        .user-badge { background:#dbeafe; color:#1e40af; }
+        .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%;
+            height:100%; background:rgba(0,0,0,0.5); z-index:999; justify-content:center; align-items:center; }
+        .modal-overlay.active { display:flex; }
+        .modal { background:white; padding:30px; border-radius:12px; width:380px; }
+        .modal h3 { margin:0 0 20px; color:#1f2937; }
+        .modal input { width:100%; padding:10px 14px; border:1px solid #d1d5db;
+            border-radius:8px; font-size:14px; box-sizing:border-box; margin-bottom:15px; }
+        .modal-btns { display:flex; gap:10px; justify-content:flex-end; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/students/add">Add Student</a>
+    <a href="/admin/students/view">View Students</a>
+    <a href="/admin/courses/add">Add Course</a>
+    <a href="/admin/courses/view">View Courses</a>
+    <a href="/admin/users">Manage Users</a>
+    <a href="/logout" style="position:absolute;bottom:20px;width:100%;">Logout</a>
+</div>
+
+<div class="content">
+    <h2>Manage Users</h2>
+
+    <div th:if="${success}" class="msg success" th:text="${success}"></div>
+    <div th:if="${error}" class="msg error" th:text="${error}"></div>
+
+    <div class="add-form">
+        <h3>Add New User</h3>
+        <form action="/admin/users/add" method="post">
+            <div class="form-row">
+                <input type="text" name="displayName" placeholder="Display Name" required />
+                <input type="text" name="username" placeholder="Username" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <select name="role">
+                    <option value="ROLE_USER">Student / User</option>
+                    <option value="ROLE_ADMIN">Admin</option>
+                </select>
+                <button type="submit" class="btn btn-blue">Add User</button>
+            </div>
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Display Name</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Change Username</th>
+            <th>Change Password</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="u : ${users}">
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.displayName}"></td>
+            <td th:text="${u.username}"></td>
+            <td>
+        <span th:class="${u.role == 'ROLE_ADMIN'} ? 'role-badge admin-badge' : 'role-badge user-badge'"
+              th:text="${u.role == 'ROLE_ADMIN'} ? 'Admin' : 'User'"></span>
+            </td>
+            <td>
+                <button class="btn btn-blue open-username-modal"
+                        th:data-id="${u.id}"
+                        th:data-username="${u.username}">
+                    Change Username
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-green open-password-modal"
+                        th:data-id="${u.id}">
+                    Change Password
+                </button>
+            </td>
+            <td>
+                <a th:href="@{/admin/users/delete/{id}(id=${u.id})}"
+                   class="btn btn-red"
+                   onclick="return confirm('Delete this user?')">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal-overlay" id="usernameModal">
+    <div class="modal">
+        <h3>Change Username</h3>
+        <form id="usernameForm" method="post">
+            <input type="text" name="newUsername" id="newUsernameInput" placeholder="New Username" required />
+            <div class="modal-btns">
+                <button type="button" class="btn btn-cancel" onclick="closeModal('usernameModal')">Cancel</button>
+                <button type="submit" class="btn btn-blue">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="passwordModal">
+    <div class="modal">
+        <h3>Change Password</h3>
+        <form id="passwordForm" method="post">
+            <input type="password" name="newPassword" placeholder="New Password" required />
+            <div class="modal-btns">
+                <button type="button" class="btn btn-cancel" onclick="closeModal('passwordModal')">Cancel</button>
+                <button type="submit" class="btn btn-green">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.open-username-modal').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var id = this.getAttribute('data-id');
+            var username = this.getAttribute('data-username');
+            document.getElementById('usernameForm').action = '/admin/users/update-username/' + id;
+            document.getElementById('newUsernameInput').value = username;
+            document.getElementById('usernameModal').classList.add('active');
+        });
+    });
+
+    document.querySelectorAll('.open-password-modal').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var id = this.getAttribute('data-id');
+            document.getElementById('passwordForm').action = '/admin/users/update-password/' + id;
+            document.getElementById('passwordModal').classList.add('active');
+        });
+    });
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+</script>
+
+</body>
+</html>
